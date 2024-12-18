@@ -27,5 +27,7 @@
 
 **Вторая реализация:** При получении запроса, мы перефразируем его на 4 доп вопроса, после чего serper выдает 4 самые релевантные ссылки для каждого вопроса. Каждую ссылку мы рендерим и получаем текст. Далее каждый текст суммаризируется и удаляються ненужные (нерелевантные) сайты. После чего отсавшиеся добавляються в промпт GigaChat и формируется ответ, которые отталкивается от информации из интернета.
 
-## Product screencast 
-![image](https://github.com/MALINAYAGODA/dis/blob/master/image.png)
+## Product screencast 1-st bot
+![image](https://github.com/MALINAYAGODA/Techstorm/blob/main/photo_1.jpg)
+## Product screencast 2-st bot
+![image](https://github.com/MALINAYAGODA/Techstorm/blob/main/photo_2.jpg)
