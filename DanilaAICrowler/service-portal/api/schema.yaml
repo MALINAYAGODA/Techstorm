@@ -1,0 +1,149 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: service-ai-search-portal
+
+paths:
+  /performSearch:
+    post:
+      operationId: performSearch
+      summary: "Выполнить поиск по запросу в поисковом движке"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ query ]
+              properties:
+                query:
+                  type: string
+                  description: "Поисковый запрос"
+                  minLength: 3
+      responses:
+        200:
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ status, result ]
+                properties:
+                  status:
+                    type: integer
+                  result:
+                    type: object
+                    required: [ snippets ]
+                    properties:
+                      snippets:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/SearchSnippet"
+        400:
+          $ref: "./responses/error.yaml#/components/responses/BadRequest"
+        500:
+          $ref: "./responses/error.yaml#/components/responses/InternalError"
+
+  /renderPages:
+    post:
+      operationId: renderPages
+      summary: "Отрендерить несколько страниц в HTML"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ urls ]
+              properties:
+                urls:
+                  type: array
+                  items:
+                    type: string
+                  minItems: 1
+                  maxItems: 100
+      responses:
+        200:
+          description: "Ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ status, result ]
+                properties:
+                  status:
+                    type: integer
+                  result:
+                    type: object
+                    required: [ completeTasks ]
+                    properties:
+                      completeTasks:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/RenderResult"
+        400:
+          $ref: "./responses/error.yaml#/components/responses/BadRequest"
+        500:
+          $ref: "./responses/error.yaml#/components/responses/InternalError"
+
+components:
+  schemas:
+    RenderResult:
+      type: object
+      description: "Модель результата рендеринга ссылки."
+      required: [url, renderedHtml, pageText]
+      properties:
+        url:
+          type: string
+          description: "Исходный URL ссылки."
+        renderedHtml:
+          type: string
+          description: "HTML код загруженной страницы, возможно с постобработкой."
+        pageText:
+          type: string
+          description: "Текст страницы, как будто выделил все мышкой и скопировал."
+
+    SearchSnippet:
+      type: object
+      description: "Модель элемента поисковой выдачи."
+      required: [ title, description, link, position ]
+      properties:
+        title:
+          type: string
+          description: "Название страницы."
+          example: "Ipad Pro - Apple"
+        description:
+          type: string
+          description: "Краткое описание страницы."
+          example: "iPad Pro features the M4 chip, 11-inch or 13-inch Ultra Retina XDR display, Wi-Fi 6E, 5G, and support for Apple Pencil Pro."
+        link:
+          type: string
+          description: "Ссылка на страницу."
+          example: "https://www.apple.com/shop/product/MWR53LL"
+        position:
+          type: integer
+          description: "Порядковый номер в выдаче. 1 - первое место в выдаче."
+          example: 1
+        imageUrl:
+          type: string
+          description: "Ссылка на картинку объекта"
+          example: "https://google.com/images/1.png"
+        price:
+          type: number
+          description: "Цена товара (опционально)."
+          example: 88.31
+        currency:
+          type: string
+          description: "Знак валюты цены товара (опционально, только вместе с price)."
+          example: "$"
+        rating:
+          type: number
+          description: "Рейтинг продукта (опционально)."
+          example: 4.89
+        ratingCount:
+          type: integer
+          description: "Количество оценок (опционально, только вместе с rating)."
+          example: 2100
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+          description: "Дополнительная информация об объекте в формате ключ-значение."

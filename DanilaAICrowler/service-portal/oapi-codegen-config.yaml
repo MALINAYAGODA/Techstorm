@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/deepmap/oapi-codegen/HEAD/configuration-schema.json
+package: rpc
+output: internal/generated/rpc/sdk.go
+output-options:
+  response-type-suffix: Response
+generate:
+  models: true
+  strict-server: true
+  echo-server: true
+  client: false
+  embedded-spec: false

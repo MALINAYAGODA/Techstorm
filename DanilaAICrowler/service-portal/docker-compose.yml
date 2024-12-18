@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: service-portal
+    environment:
+      APP_PORT: 8070  # Указываем новый порт в переменных окружения
+      SERPER_API_KEY: b681f36c198591c1b8f25c1cc807725996a133bd
+    ports:
+      - "8070:8070"  # Связываем порт 8070 хоста с портом 8070 контейнера

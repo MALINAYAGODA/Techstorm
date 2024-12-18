@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  description: Just for autocompletion
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required: [ code, message ]
+      properties:
+        code:
+          type: integer
+          description: "Численный код ошибки"
+        message:
+          type: string
+          description: "Сообщение с пояснением об ошибке"
+        data:
+          type: object
+          description: "Дополнительная информация об ошибке в произвольном формате"
+          x-go-type: any
+          x-go-type-skip-optional-pointer: true
+
+  responses:
+    BadRequest:
+      description: "BadRequest"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    InternalError:
+      description: "InternalError"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
