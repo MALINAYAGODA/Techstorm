@@ -31,3 +31,7 @@
 ![image](https://github.com/MALINAYAGODA/Techstorm/blob/main/photo_1.jpg)
 ## Product screencast 2-st bot
 ![image](https://github.com/MALINAYAGODA/Techstorm/blob/main/photo_2.jpg)
+
+## Как запускать
+В папке rag находиться Первая реализация - в ReadMe написана инструкция для запуска
+В папке DanilaAiCrowler находиться Вторая реализация - в ReadMe написана инструкция для запуска
